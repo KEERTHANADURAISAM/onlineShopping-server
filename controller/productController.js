@@ -1,10 +1,22 @@
+import { users } from "../data/user";
 import Products from "../models/productSchema";
 import User from "../models/userSchema";
 
 // create categerious
-// const create_Categories=async (req,res)=>{
-//     const createUser = await User.insertMany(users)
-// }
+const create_Categories = async (req, res) => {
+  try {
+    const createUser = await User.insertMany(users);
+    const adminUser = createUser[0]._id;
+    const sampleData = Products.map((product) => {
+      return { ...product, user: adminUser };
+    });
+    const thinks = await Products.insertMany(sampleData);
+    res.status(200).json("created");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
 
 // get products
 const getProducts = async (req, res) => {
