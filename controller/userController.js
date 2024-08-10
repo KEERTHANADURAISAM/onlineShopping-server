@@ -40,31 +40,32 @@ const registerUser = async (req, res) => {
 
 // loginUser
 
-const loginUser = async (req, res) => {
- 
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
 
-    console.log(user)
-    // matchpwd
- 
-    // if (user && (await bcrypt.compare(password, user.password))) {
-    //   res.status(200).json({
-    //     _id: user._id,
-    //     name: user.name,
-    //     email: user.email,
-    //     admin: user.admin,
-    //     // token: generateToken(user._id),
-    //   });
-    // } 
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid credentials' });
+      return res.status(400).json({ message: "Invalid credentials" });
     }
- 
-};
 
 
+    const token = jwt.sign({ id: user._id }, "your_jwt_secret", {
+      expiresIn: "1h",
+    });
 
+   return res.json({user,token})
+  }
+    catch(error){
+      res.status(500).json({Error:error})
+    }
+
+  }
 
 export { registerUser, loginUser };

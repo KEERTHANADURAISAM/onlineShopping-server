@@ -2,6 +2,12 @@ import express from "express"
 import { userRoutes } from "./routes/userRoute.js";
 import { mongoConnect } from "./db.js";
 import dotenv from 'dotenv'
+import {  productRoute } from "./routes/productRoute.js";
+import { orderRoute } from "./routes/orderRoute.js";
+
+
+
+
 dotenv.config()
 // denote express
 const app =express();
@@ -22,8 +28,9 @@ app.get('/', (req,res)=>{
 
 // api requests
 app.use("/api/user", userRoutes);
+app.use("/api",productRoute)
 
-
+app.use("/api/orders",orderRoute);
 
 
 // app listening with port
