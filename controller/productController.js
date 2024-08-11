@@ -47,13 +47,15 @@ const getProducts = async (req, res) => {
 
 const getSingleProduct = async (req, res) => {
   try {
-    const getProduct = await Products.findOne(req.params.id);
+    const productId =req.params.id
+    const getProduct = await Products.findOne({_id:productId});
     if (getProduct) {
       return res.json(getProduct);
     } else {
       res.json(404).json("User Not Found");
     }
   } catch (error) {
+    console.log(error)
     res.status(500).json({ Error: error });
   }
 };
