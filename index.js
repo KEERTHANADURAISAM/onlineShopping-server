@@ -4,7 +4,7 @@ import { mongoConnect } from "./db.js";
 import dotenv from 'dotenv'
 import {  productRoute } from "./routes/productRoute.js";
 import { orderRoute } from "./routes/orderRoute.js";
-
+import cors from "cors"
 
 
 
@@ -19,6 +19,8 @@ const port =process.env. PORT || 3008;
 // db connection
 mongoConnect();
 
+// cors
+app.use(cors());
 
 
 // initial api 

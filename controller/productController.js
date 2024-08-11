@@ -33,15 +33,16 @@ const create_Categories = async (req, res) => {
 
 // get products
 const getProducts = async (req, res) => {
-  try {
-    const getProducts = Products.find().lean();
-    res.status(200).json({ getProducts });
-  
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({ Error: error });
-  }
-};
+    console.log("hello");
+    try {
+      const products =await Products.find({});
+      console.log(products)
+      res.status(200).json(products);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ Error: error });
+    }
+  };
 
 // get single product
 
