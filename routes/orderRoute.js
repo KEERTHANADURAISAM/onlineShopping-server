@@ -1,6 +1,6 @@
 // import { Router } from "express";
 import express from 'express'
-import { getAllOrders, getMyOrders, getSingleOrder, orderItem } from "../controller/orderController";
+import { getAllOrders, getMyOrders, getSingleOrder, orderItem } from "../controller/orderController.js";
 const router =express.Router()
 
 // getUserOrder
@@ -13,7 +13,8 @@ router.route("/").post(orderItem);
 // router.route("/:id/pay").put(protect, updateOrderToPaid);
 //get all orders
 router.route("/").get( getAllOrders);
-export default router;
+
+export const orderRoute=router;
 
 
 

@@ -28,7 +28,7 @@ app.get('/', (req,res)=>{
 
 // api requests
 app.use("/api/user", userRoutes);
-app.use("/api",productRoute)
+app.use("/api/products",productRoute)
 
 app.use("/api/orders",orderRoute);
 

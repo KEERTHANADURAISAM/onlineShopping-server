@@ -1,16 +1,29 @@
-import { users } from "../data/user";
-import Products from "../models/productSchema";
-import User from "../models/userSchema";
+import { additionalBooks } from "../data/books.js";
+import { newProducts } from "../data/products.js";
+import { users } from "../data/user.js";
+import Products from "../models/productSchema.js";
+import User from "../models/userSchema.js";
 
 // create categerious
 const create_Categories = async (req, res) => {
   try {
     const createUser = await User.insertMany(users);
     const adminUser = createUser[0]._id;
-    const sampleData = Products.map((product) => {
+    const sampleData =newProducts.map((product) => {
+        if (!product.brand) {
+            throw new Error(`Brand is required for product`);
+          }
       return { ...product, user: adminUser };
     });
+    const sampleDataOne=additionalBooks.map((product) => {
+        if (!product.brand) {
+            product.brand = "Default Brand";
+          }
+        return { ...product, user: adminUser };
+      });
+      
     const thinks = await Products.insertMany(sampleData);
+    // const thinksOne=await Products.insertMany(sampleDataOne);
     res.status(200).json("created");
   } catch (error) {
     console.log(error);
@@ -21,9 +34,11 @@ const create_Categories = async (req, res) => {
 // get products
 const getProducts = async (req, res) => {
   try {
-    const getProducts = Products.find({});
+    const getProducts = Products.find().lean();
     res.status(200).json({ getProducts });
+  
   } catch (error) {
+    console.log(error)
     res.status(500).json({ Error: error });
   }
 };
@@ -43,4 +58,4 @@ const getSingleProduct = async (req, res) => {
   }
 };
 
-export { getProducts, getSingleProduct };
+export { getProducts, getSingleProduct,create_Categories };

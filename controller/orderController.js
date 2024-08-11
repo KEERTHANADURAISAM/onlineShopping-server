@@ -1,4 +1,4 @@
-import Order from "../models/orderSchema";
+import Order from "../models/orderSchema.js";
 
 // get all oreders
 const getAllOrders =async (req,res)=>{

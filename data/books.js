@@ -67,5 +67,5 @@ const additionalBooks = [
     },
   ];
   
-  module.exports = additionalBooks;
+  export {additionalBooks};
   
