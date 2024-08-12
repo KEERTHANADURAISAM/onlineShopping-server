@@ -8,7 +8,7 @@ import cors from "cors"
 
 
 
-dotenv.config()
+dotenv.config();
 // denote express
 const app =express();
 // config express
